@@ -1,0 +1,20 @@
+{
+  "name": "sm3",
+  "version": "1.0.0",
+  "description": "国密SM3密码杂凑算法的JavaScript实现",
+  "main": "sm3.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiaxingzheng/JavaScript-SM3.git"
+  },
+  "keywords": [
+    "sm3",
+    "javascript"
+  ],
+  "author": "Zheng Jiaxing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jiaxingzheng/JavaScript-SM3/issues"
+  },
+  "homepage": "https://github.com/jiaxingzheng/JavaScript-SM3"
+}

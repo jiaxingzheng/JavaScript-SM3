@@ -1,3 +1,17 @@
+/*
+ * JavaScript SM3
+ * https://github.com/jiaxingzheng/JavaScript-SM3
+ *
+ * Copyright 2017, Zheng Jiaxing
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ *
+ * Refer to
+ * http://www.oscca.gov.cn/UpFile/20101222141857786.pdf
+ */
+
+
 // 左补0到指定长度
 function leftPad(str, totalLength) {
   const len = str.length;
