@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jiaxingzheng/JavaScript-SM3/issues"
   },
-  "homepage": "https://github.com/jiaxingzheng/JavaScript-SM3"
+  "homepage": "https://github.com/jiaxingzheng/JavaScript-SM3",
+   "scripts": {
+    "test": "node test.js"
+  }
 }
