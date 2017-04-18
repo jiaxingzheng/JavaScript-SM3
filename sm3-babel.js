@@ -226,8 +226,10 @@ function sm3(str) {
   var binary = str2binary(str);
   // 填充
   var len = binary.length;
-  var k = 448 % 512 - 1 - len;
-  k = k < 0 ? 0 : k; // k是满足len + 1 + k = 448mod512的最小的非负整数
+  // k是满足len + 1 + k = 448mod512的最小的非负整数
+  var k = len % 512;
+  // 如果 448 <= (512 % len) < 512，需要多补充 (len % 448) 比特'0'以满足总比特长度为512的倍数
+  k = k >= 448 ? 512 - (k % 448) - 1: 448 - k - 1;
   var m = (binary + '1' + leftPad('', k) + leftPad(len.toString(2), 64)).toString(); // k个0
 
   // 迭代压缩
