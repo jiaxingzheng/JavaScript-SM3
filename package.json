@@ -1,6 +1,6 @@
 {
   "name": "sm3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "国密SM3密码杂凑算法的JavaScript实现",
   "main": "sm3.js",
   "repository": {
@@ -17,7 +17,7 @@
     "url": "https://github.com/jiaxingzheng/JavaScript-SM3/issues"
   },
   "homepage": "https://github.com/jiaxingzheng/JavaScript-SM3",
-   "scripts": {
+  "scripts": {
     "test": "node test.js"
   }
 }
