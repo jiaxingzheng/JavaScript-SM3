@@ -29,7 +29,7 @@ const hash = sm3('值');
 ```
 
 ## 参考
-[SM3密码杂凑算法](http://www.oscca.gov.cn/UpFile/20101222141857786.pdf)
+[SM3密码杂凑算法](http://www.sca.gov.cn/sca/xwdt/2010-12/17/1002389/files/302a3ada057c4a73830536d03e683110.pdf)
 
 ## License
 [MIT license](http://www.opensource.org/licenses/MIT).
