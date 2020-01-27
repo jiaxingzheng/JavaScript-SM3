@@ -1,5 +1,18 @@
 'use strict';
 
+/*
+ * JavaScript SM3
+ * https://github.com/jiaxingzheng/JavaScript-SM3
+ *
+ * Copyright 2017, Zheng Jiaxing
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ *
+ * Refer to
+ * http://www.oscca.gov.cn/UpFile/20101222141857786.pdf
+ */
+
 // 左补0到指定长度
 function leftPad(str, totalLength) {
   var len = str.length;
@@ -26,18 +39,38 @@ function hex2binary(hex) {
   return binary;
 }
 
-// 普通字符串转化为二进制
-function str2binary(str) {
+// utf16码点值转化为utf8二进制
+function utf16CodePoint2utf8Binary(ch) {
+  var utf8Arr = [];
+  var codePoint = ch.codePointAt(0);
+
+  if (codePoint >= 0x00 && codePoint <= 0x7f) {
+    utf8Arr.push(codePoint);
+  } else if (codePoint >= 0x80 && codePoint <= 0x7ff) {
+    utf8Arr.push(192 | 31 & codePoint >> 6);
+    utf8Arr.push(128 | 63 & codePoint);
+  } else if (codePoint >= 0x800 && codePoint <= 0xd7ff || codePoint >= 0xe000 && codePoint <= 0xffff) {
+    utf8Arr.push(224 | 15 & codePoint >> 12);
+    utf8Arr.push(128 | 63 & codePoint >> 6);
+    utf8Arr.push(128 | 63 & codePoint);
+  } else if (codePoint >= 0x10000 && codePoint <= 0x10ffff) {
+    utf8Arr.push(240 | 7 & codePoint >> 18);
+    utf8Arr.push(128 | 63 & codePoint >> 12);
+    utf8Arr.push(128 | 63 & codePoint >> 6);
+    utf8Arr.push(128 | 63 & codePoint);
+  }
+
   var binary = '';
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
 
   try {
-    for (var _iterator = str[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var ch = _step.value;
+    for (var _iterator = utf8Arr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var utf8Code = _step.value;
 
-      binary += leftPad(ch.codePointAt(0).toString(2), 8);
+      var b = utf8Code.toString(2);
+      binary += leftPad(b, Math.ceil(b.length / 8) * 8);
     }
   } catch (err) {
     _didIteratorError = true;
@@ -50,6 +83,37 @@ function str2binary(str) {
     } finally {
       if (_didIteratorError) {
         throw _iteratorError;
+      }
+    }
+  }
+
+  return binary;
+}
+
+// 普通字符串转化为二进制
+function str2binary(str) {
+  var binary = '';
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = str[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var ch = _step2.value;
+
+      binary += utf16CodePoint2utf8Binary(ch);
+    }
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+        _iterator2.return();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
       }
     }
   }
@@ -229,7 +293,7 @@ function sm3(str) {
   // k是满足len + 1 + k = 448mod512的最小的非负整数
   var k = len % 512;
   // 如果 448 <= (512 % len) < 512，需要多补充 (len % 448) 比特'0'以满足总比特长度为512的倍数
-  k = k >= 448 ? 512 - (k % 448) - 1: 448 - k - 1;
+  k = k >= 448 ? 512 - k % 448 - 1 : 448 - k - 1;
   var m = (binary + '1' + leftPad('', k) + leftPad(len.toString(2), 64)).toString(); // k个0
 
   // 迭代压缩

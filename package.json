@@ -18,6 +18,16 @@
   },
   "homepage": "https://github.com/jiaxingzheng/JavaScript-SM3",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "build": "babel sm3.js --out-file sm3-babel.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1"
   }
 }
