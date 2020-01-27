@@ -1,6 +1,8 @@
 // var sm3 = require('./sm3-babel');
 const sm3 = require('./sm3');
-console.log(sm3('abc'));// 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0
+
+// 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0
+console.log(sm3('abc'));
 
 /* len: 192
  * k:   255
@@ -26,8 +28,8 @@ console.log(sm3('abcdefghABCDEFGH12345678abcdefghABCDEFGH12345678abcdefghABCD'))
  */
 console.log(sm3('abcdefghABCDEFGH12345678abcdefghABCDEFGH12345678abcdefghABCDEFGH'));
 
-/* len: 576
- * k:   383
- * SM3: b160d66fc3011571d74958c79b710486649049261c01a8f75818059bf64c2e78
- */
-console.log(sm3('abcdefghABCDEFGH12345678abcdefghABCDEFGH12345678abcdefghABCDEFGH'));
+// 71f68f1c12c91817e4379e4e0be0c2d6d86b40718db73b61b1d63e2bd350f368
+console.log(sm3('值'));
+
+// 6446ca60cc1024274ebd2e91f6297d27be0347c35cd4d9fb05cc12b00aa5162e
+console.log(sm3('𠮷'));

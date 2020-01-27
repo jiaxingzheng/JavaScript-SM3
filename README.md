@@ -17,7 +17,7 @@ const hash = sm3('值');
 
 ## 要求
 没有依赖，但Node.js版本需>=6.0.0，或使用sm3-babel.js文件（Node.js版本>=1.0.0），
-也可自行使用[Babel](http://babeljs.io/)对sm3.js文件进行转化（具体如何使用可参见(http://www.ruanyifeng.com/blog/2016/01/babel.html)）
+也可自行使用[Babel](http://babeljs.io/)对sm3.js文件进行转化（具体如何使用可参见[Babel中文文档](hhttps://www.babeljs.cn/docs/)）
 ```sh
 babel sm3.js --out-file sm3-babel.js
 ```

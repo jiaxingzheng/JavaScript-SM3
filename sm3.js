@@ -38,11 +38,42 @@ function hex2binary(hex) {
   return binary;
 }
 
+// utf16码点值转化为utf8二进制
+function utf16CodePoint2utf8Binary(ch) {
+  const utf8Arr = [];
+  const codePoint = ch.codePointAt(0);
+
+  if (codePoint >= 0x00 && codePoint <= 0x7f) {
+    utf8Arr.push(codePoint);
+  } else if (codePoint >= 0x80 && codePoint <= 0x7ff) {
+    utf8Arr.push((192 | (31 & (codePoint >> 6))));
+    utf8Arr.push((128 | (63 & codePoint)))
+  } else if ((codePoint >= 0x800 && codePoint <= 0xd7ff)
+    || (codePoint >= 0xe000 && codePoint <= 0xffff)) {
+    utf8Arr.push((224 | (15 & (codePoint >> 12))));
+    utf8Arr.push((128 | (63 & (codePoint >> 6))));
+    utf8Arr.push((128 | (63 & codePoint)))
+  } else if (codePoint >= 0x10000 && codePoint <= 0x10ffff) {
+    utf8Arr.push((240 | (7 & (codePoint >> 18))));
+    utf8Arr.push((128 | (63 & (codePoint >> 12))));
+    utf8Arr.push((128 | (63 & (codePoint >> 6))));
+    utf8Arr.push((128 | (63 & codePoint)))
+  }
+
+  let binary = '';
+  for (let utf8Code of utf8Arr) {
+    const b = utf8Code.toString(2);
+    binary += leftPad(b, Math.ceil(b.length / 8) * 8);
+  }
+
+  return binary;
+}
+
 // 普通字符串转化为二进制
 function str2binary(str) {
   let binary = '';
   for (const ch of str) {
-    binary += leftPad(ch.codePointAt(0).toString(2), 8);
+    binary += utf16CodePoint2utf8Binary(ch);
   }
   return binary;
 }
