@@ -33,3 +33,11 @@ console.log(sm3('值'));
 
 // 6446ca60cc1024274ebd2e91f6297d27be0347c35cd4d9fb05cc12b00aa5162e
 console.log(sm3('𠮷'));
+
+// a5c65971fc1631bbd17d5a5e088baa1b44fcd41fae3cb0c40a4e3ff73b942f6c
+var fs= require('fs');
+let filePath = "test_file.txt"
+fs.readFile(filePath, function (err, bytesRead) {
+    if (err) throw err;
+    console.log(sm3(bytesRead))
+});

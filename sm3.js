@@ -230,8 +230,15 @@ function CF(V, Bi) {
 }
 
 // sm3 hash算法 http://www.oscca.gov.cn/News/201012/News_1199.htm
-function sm3(str) {
-  const binary = str2binary(str);
+function sm3(content) {
+  let binary = ""
+  if (typeof content == 'string') {
+    binary = str2binary(content);
+  } else {
+    for (a of content) {
+      binary += a.toString(2).padStart(8, "0")
+    }
+  }
   // 填充
   const len = binary.length;
   // k是满足len + 1 + k = 448mod512的最小的非负整数
@@ -251,4 +258,4 @@ function sm3(str) {
   return binary2hex(V);
 }
 
-module.exports = sm3;
+module.exports = sm3
